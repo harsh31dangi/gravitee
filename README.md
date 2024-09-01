@@ -17,4 +17,5 @@ Part 2: Extended functionality and improvements.
 
 ## **Output**
 
-![image](https://github.com/user-attachments/assets/a3b1be33-3e4f-4a7a-9a2d-a2eaab752704)
+![image](https://github.com/user-attachments/assets/527b969b-527f-423d-b677-79a09088d969)
+
