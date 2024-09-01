@@ -6,9 +6,18 @@ import java.util.Map;
 
 public class LCD {
     private static final Map<Integer, Digit> DIGIT_MAP = new HashMap<>(10);
+    private int height = 1;
+    private int width = 1;
 
     LCD() {
         initializeDigits();
+    }
+
+    LCD(int height, int width) {
+        this();
+        if (height < 1 || width < 1) throw new IllegalArgumentException("Height or width should not be less than 1.");
+        this.height = height;
+        this.width = width;
     }
 
     void initializeDigits() {
@@ -25,12 +34,14 @@ public class LCD {
     }
 
     void print(String number) {
+        //check if number has all digits or not
         boolean allDigits = number.chars().allMatch(Character::isDigit);
         if (!allDigits) throw new NumberFormatException("Invalid input. Please provide a valid number.");
+
         List<Integer> digits = number.chars().mapToObj(c -> c - '0').toList();
 
-        int rows = 3; //as the digits should be 3 lines high
-        int cols = 3;
+        int rows = height * 2 + 1; // one row for the top and other rows as twice on height
+        int cols = width + 2;
 
         for (int row = 0; row < rows; row++) {
             for (int digit : digits) {
@@ -38,11 +49,11 @@ public class LCD {
                 for (int col = 0; col < cols; col++) {
                     if (isTopRow(row)) {
                         printTop(currentDigit, col, cols);
-                    } else if (isAboveMiddle(row, 1)) {
+                    } else if (isAboveMiddle(row, height)) {
                         printAboveMiddle(currentDigit, col, cols);
-                    } else if (isMiddleRow(row, 1)) {
+                    } else if (isMiddleRow(row, height)) {
                         printMiddle(currentDigit, col, cols);
-                    } else if (isBelowMiddle(row, 1, rows)) {
+                    } else if (isBelowMiddle(row, height, rows)) {
                         printBelowMiddle(currentDigit, col, cols);
                     } else if (isBottomRow(row, rows)) {
                         printBottom(currentDigit, col, cols);
@@ -59,16 +70,16 @@ public class LCD {
         return row == 0;
     }
 
-    private boolean isAboveMiddle(int row, int middleRow) {
-        return row >= 1 && row < middleRow;
+    private boolean isAboveMiddle(int row, int height) {
+        return row >= 1 && row < height;
     }
 
-    private boolean isMiddleRow(int row, int middleRow) {
-        return row == middleRow;
+    private boolean isMiddleRow(int row, int height) {
+        return row == height;
     }
 
-    private boolean isBelowMiddle(int row, int middleRow, int rows) {
-        return row > middleRow && row < rows - 1;
+    private boolean isBelowMiddle(int row, int height, int rows) {
+        return row > height && row < rows - 1;
     }
 
     private boolean isBottomRow(int row, int rows) {
