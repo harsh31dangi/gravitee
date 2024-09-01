@@ -14,3 +14,7 @@ Part 2: Extended functionality and improvements.
 **part-1**: Contains the code for the initial implementation (Part 1).
 
 **part-2**: Contains the code for the extended functionality (Part 2).
+
+## **Output**
+
+![image](https://github.com/user-attachments/assets/a3b1be33-3e4f-4a7a-9a2d-a2eaab752704)
